@@ -192,7 +192,7 @@ $(document).ready(async function () {
     }
 
     // If Auth token is set, then connect to chat using oauth, else connect anonymously.
-    if (mainAccount > '' && ref > '' && chatConnect === 'true') {
+    if (mainAccount > '' && ref > '' && clientId > '' && chatConnect === 'true') {
         // Connect to twitch - needs auth token
         client = new tmi.Client({
             options: {
@@ -215,7 +215,7 @@ $(document).ready(async function () {
             $("<div class='msg-error'>Login authentication failed. Twitch Access Token may have expired. Please generate a new one.</div>").prependTo('body');
         });
 
-    } else if (mainAccount > '' && ref == '' && chatConnect === 'true') {
+    } else if (mainAccount > '' && clientId == '' && chatConnect === 'true') {
         // Connect to twitch anonymously - does not need auth token
         client = new tmi.Client({
             options: {
