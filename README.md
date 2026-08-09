@@ -10,8 +10,6 @@ This is a Twitch Clips Player, browser source overlay for OBS. It grabs your Twi
 Try it here:
 - [https://twitchclipsplayer.com](https://twitchclipsplayer.com)
 - [https://twitch-clips-player.teklynk.com](https://twitch-clips-player.teklynk.com)
-- [https://twitch-clips-player.teklynk.dev](https://twitch-clips-player.teklynk.dev)
-- [https://twitch-clips-player.pages.dev](https://twitch-clips-player.pages.dev)
 
 ## Features
 - **Chat Control**: Control the clips from Twitch chat using `!clipskip`, `!clippause`, `!clipplay`, `!clipreload`. (Limited to Mods and Streamer).
