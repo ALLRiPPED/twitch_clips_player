@@ -417,6 +417,10 @@ $(document).ready(async function () {
 
     // Update progress bar
     function animateProgressBar() {
+        // Reset progress bar when called
+        $(progressBar).css("width", "0%");
+        $(progressBarContainer).css("display", "none");
+
         if (curr_clip.duration && progressBarOption !== 'false') {
             $(progressBarContainer).css("display", "block");
             let percentage = (curr_clip.currentTime / curr_clip.duration) * 100;
