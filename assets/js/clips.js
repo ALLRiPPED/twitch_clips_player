@@ -164,7 +164,7 @@ $(document).ready(async function () {
     }
 
     if (!limit || limit === "0") {
-        limit = "10"; //default
+        limit = "100"; //default
     }
 
     if (!dateRange || dateRange === "0") {
