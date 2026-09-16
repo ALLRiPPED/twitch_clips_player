@@ -16,7 +16,7 @@ $(document).ready(async function () {
         let serverArr = [];
 
         // Custom server url
-        let apiServerUrl = (urlParams.get('apiServer') || '').toLowerCase().trim();
+        let apiServerUrl = (urlParams.get('apiServer') || '').trim();
 
         if (apiServerUrl) {
             serverArr = [apiServerUrl];
@@ -35,11 +35,10 @@ $(document).ready(async function () {
 
         // Check the server status. If it is down, try the next server.
         for (const server of servers) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
             try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 3000);
                 const response = await fetch(server, { method: 'HEAD', signal: controller.signal });
-                clearTimeout(timeoutId);
                 
                 // Ensure the server returns a successful 2xx status code
                 if (response.ok) {
@@ -47,6 +46,8 @@ $(document).ready(async function () {
                 }
             } catch (error) {
                 console.warn(`Server ${server} is unreachable. Trying next...`);
+            } finally {
+                clearTimeout(timeoutId);
             }
         }
         return null;
@@ -540,7 +541,7 @@ $(document).ready(async function () {
             }
 
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 3000); // 3-second timeout for API calls
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10-second timeout for API calls
 
             response = await fetch(apiUrl, { signal: controller.signal });
             clearTimeout(timeoutId);
@@ -552,7 +553,7 @@ $(document).ready(async function () {
             // If dateRange or preferFeatured is set but no clips are found or only 1 clip is found. Try to pull any clip. 
             if (data.data.length === 0 && (dateRange > "" || preferFeatured !== "false")) {
                 const fallbackController = new AbortController();
-                const fallbackTimeoutId = setTimeout(() => fallbackController.abort(), 3000); // 3-second timeout for fallback
+                const fallbackTimeoutId = setTimeout(() => fallbackController.abort(), 10000); // 10-second timeout for fallback
                 response = await fetch(apiServer + "/getuserclips.php?channel=" + channelName + "&limit=" + limit + "&shuffle=true&cache=" + cache, { signal: fallbackController.signal });
                 clearTimeout(fallbackTimeoutId);
                 if (!response.ok) {
